@@ -31,14 +31,21 @@ function wander(){cancelAnimationFrame(bee.raf);bee.flying=true;let last=perform
   const nx=wx+(195-wx)*p, ny=wy+(150-wy)*p;
   if(p<0.6&&Math.abs(nx-bee.x)>0.05)bee.face=nx>bee.x?1:-1;bee.x=nx;bee.y=ny;placeBee();placeBubble();bee.raf=requestAnimationFrame(step)};
  bee.raf=requestAnimationFrame(step)}
-let actx,bufs={},soundOn=localStorage.getItem("beeSound")!=="off";
+let actx=null,bufs={},bufP={},soundOn=localStorage.getItem("beeSound")!=="off";
 function snd(){$("#snd").textContent=soundOn?"🔊":"🔇"}
-async function unlock(){if(actx){actx.resume();return}try{actx=new (window.AudioContext||window.webkitAudioContext)();actx.resume();
- for(const n of["woohoo","aww","c1","c2","c3","c4","c5","w1","w2","w3","w4","w5"]){fetch(`sounds/${n[1]>="0"&&n[1]<="9"?"react/"+n:n}.mp3`).then(r=>r.arrayBuffer()).then(b=>actx.decodeAudioData(b)).then(d=>bufs[n]=d).catch(()=>{})}loadNar()}catch(e){}}
+function getCtx(){if(!actx){try{actx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}return actx}
+function loadBuf(key,url){if(bufP[key])return bufP[key];const c=getCtx();if(!c)return Promise.resolve(null);
+ bufP[key]=fetch(url).then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}).then(b=>new Promise((ok,no)=>c.decodeAudioData(b,ok,no))).then(d=>bufs[key]=d).catch(()=>null);return bufP[key]}
+function preloadSfx(){for(const n of["woohoo","aww","c1","c2","c3","c4","c5","w1","w2","w3","w4","w5"])loadBuf(n,`sounds/${n[1]>="0"&&n[1]<="9"?"react/"+n:n}.mp3`)}
+function loadNar(){if(!quiz)return;quiz.questions.forEach((_,n)=>loadBuf("q"+n,`sounds/quizzes/${quiz.id}/q${n+1}.mp3`))}
+/* Must run synchronously inside a tap handler (iOS). */
+function unlock(){const c=getCtx();if(!c)return;try{if(c.state!=="running")c.resume();const s=c.createBufferSource();s.buffer=c.createBuffer(1,1,22050);s.connect(c.destination);s.start(0)}catch(e){}}
 let cur=null;function stopSnd(){if(cur){try{cur.stop()}catch(e){}cur=null}}
 function play(n){stopSnd();if(!soundOn||!actx||!bufs[n])return 0;const s=actx.createBufferSource();s.buffer=bufs[n];s.connect(actx.destination);s.start();cur=s;return bufs[n].duration}
-function loadNar(){if(!actx||!quiz)return;quiz.questions.forEach((_,n)=>{const key="q"+n;if(bufs[key])return;
- fetch(`sounds/quizzes/${quiz.id}/q${n+1}.mp3`).then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}).then(b=>actx.decodeAudioData(b)).then(d=>bufs[key]=d).catch(()=>{})})}
+function narrate(qi,cb){$("#hear").classList.add("hidden");const key="q"+qi;
+ const go=()=>{if(qi!==i||bee.picked)return;let d=0;if(soundOn){d=play(key);if(!d||(actx&&actx.state!=="running"))setTimeout(()=>{if(qi===i&&!bee.picked&&(!d||actx.state!=="running"))$("#hear").classList.remove("hidden")},600)}cb(d)};
+ if(bufs[key]||!soundOn)return go();let done=false;const t=setTimeout(()=>{if(!done){done=true;go()}},3000);
+ loadBuf(key,`sounds/quizzes/${quiz.id}/q${qi+1}.mp3`).then(()=>{if(!done){done=true;clearTimeout(t);go()}})}
 function render(){
  $("#hfill").style.width=health+"%";$("#hfill").style.background=`hsl(${Math.round(health*1.2)} 80% 55%)`;
  const sick=health<40,B=document.body.style;document.body.classList.toggle("sick",sick);document.body.classList.toggle("strong",health>=80);
@@ -60,7 +67,7 @@ async function load(){
   let r=await fetch(`quizzes/${id}.json`);
   if(!r.ok)r=await fetch(`quizzes/${idx.default}.json`);
   quiz=await r.json();
-  $("#qtitle").textContent=quiz.title;$("#go").disabled=false;
+  $("#qtitle").textContent=quiz.title;preloadSfx();loadNar();$("#go").disabled=false;
  }catch(e){$("#qtitle").textContent="Couldn't load the quiz. Please refresh."}
  render();
 }
@@ -72,7 +79,7 @@ function ask(){bee.picked=false;
   b.innerHTML=`<b>${"ABCD"[k]}</b><span></span>`;b.querySelector("span").textContent=c;
   b.onclick=()=>pick(k);box.appendChild(b)});
  if(!bee.flying)wander();show("quiz");upMeta();$("#quiz").style.animation="none";void $("#quiz").offsetWidth;$("#quiz").style.animation="";clearInterval(tInt);clearTimeout(bee.narT);$("#tfill").style.width="100%";$("#tsec").textContent="🔈";
- const nd=play("q"+i);tStart=performance.now()+nd*1000;bee.narT=setTimeout(()=>{tStart=performance.now();runTimer()},nd*1000);
+ tStart=performance.now()+60000;narrate(i,nd=>{tStart=performance.now()+nd*1000;bee.narT=setTimeout(()=>{tStart=performance.now();runTimer()},nd*1000)});
 }
 function runTimer(){clearInterval(tInt);
  tInt=setInterval(()=>{const left=Math.max(0,TLIM-(performance.now()-tStart)/1000);$("#tfill").style.width=left/TLIM*100+"%";$("#tsec").textContent=Math.ceil(left)+"s";
@@ -122,7 +129,8 @@ async function copy(){try{await navigator.clipboard.writeText(shareUrl())}catch(
  $("#copied").classList.remove("hidden");setTimeout(()=>$("#copied").classList.add("hidden"),2000)}
 $("#share").onclick=async()=>{if(navigator.share){try{await navigator.share({title:"Save the Bee!",text:shareText(),url:shareUrl()})}catch(e){}}else copy()};
 $("#copy").onclick=copy;snd();$("#snd").onclick=()=>{soundOn=!soundOn;localStorage.setItem("beeSound",soundOn?"on":"off");snd();if(soundOn)unlock();else stopSnd()};
-$("#go").onclick=()=>{unlock();loadNar();bee.fat=1;reset();points=0;run=0;shield=false;i=0;score=0;health=60;render();ask()};
+$("#hear").onclick=$("#replay").onclick=()=>{unlock();if(bee.picked)return;setTimeout(()=>{const d=play("q"+i);$("#hear").classList.toggle("hidden",!!d||!soundOn)},30)};
+$("#go").onclick=()=>{unlock();loadNar();preloadSfx();bee.fat=1;reset();points=0;run=0;shield=false;i=0;score=0;health=60;render();ask()};
 $("#next").onclick=()=>{i++;i<quiz.questions.length?ask():end()};
 $("#again").onclick=()=>{$("#bubble").classList.add("hidden");reset();clearInterval(tInt);clearTimeout(bee.narT);stopSnd();health=60;render();show("start")};
 function reset(){document.body.classList.remove("dead","buff","cheer","oops");["xeyes","legs","halo","arms","speed","sparkles"].forEach(x=>$("#"+x).classList.add("hidden"));$("#eyes").classList.remove("hidden")}

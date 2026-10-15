@@ -58,3 +58,4 @@ button,.btn{font:inherit;cursor:pointer}
 #tbar{height:8px;background:#eee3b8;border-radius:5px;overflow:hidden;margin-bottom:12px}#tfill{height:100%;width:100%;background:#ffb300}
 #shield{animation:glow 1s ease-in-out infinite alternate;filter:drop-shadow(0 0 8px #ffd54f)}@keyframes glow{to{opacity:.55}}
 .days{background:#fff3c4;border:2px dashed #ffb300;border-radius:12px;padding:8px;font-weight:800;text-align:center}
+.mini{border:2px solid #2b2100;background:#fff;border-radius:8px;padding:0 6px;font-size:.9rem}.hearbtn{display:block;width:100%;margin:0 0 10px;padding:8px;border-radius:10px;border:2px dashed #2b2100;background:#fff3c4;font-weight:700}
