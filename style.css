@@ -42,7 +42,7 @@ button,.btn{font:inherit;cursor:pointer}
 @keyframes fall{from{transform:translate(200px,140px)}to{transform:translate(200px,215px)}}
 #halo{animation:halo 2s ease-in-out infinite alternate}@keyframes halo{from{transform:translateY(-20px)}to{transform:translateY(-70px)}}
 .buff #bee{animation:zoom 1.6s linear infinite}
-@keyframes zoom{0%{transform:translate(70px,110px) scale(1.25)}25%{transform:translate(320px,80px) scale(1.25)}50%{transform:translate(330px,170px) scale(1.25) }75%{transform:translate(80px,175px) scale(1.25)}100%{transform:translate(70px,110px) scale(1.25)}}
+@keyframes zoom{0%{transform:translate(70px,110px) scale(1.7,1.15)}25%{transform:translate(320px,80px) scale(1.7,1.15)}50%{transform:translate(330px,170px) scale(1.7,1.15) }75%{transform:translate(80px,175px) scale(1.7,1.15)}100%{transform:translate(70px,110px) scale(1.7,1.15)}}
 .buff #beeInner{animation:flex .4s ease-in-out infinite alternate}@keyframes flex{to{transform:scale(1.08) rotate(-6deg)}}
 .buff .wing{animation-duration:.05s}
 #speed{animation:dash .3s linear infinite}@keyframes dash{to{transform:translateX(-30px)}}

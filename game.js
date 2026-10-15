@@ -11,16 +11,18 @@ const flowers=[];
  let p=`<path d="M${x} ${y}v-28" stroke="#3d8b37" stroke-width="3"/>`;
  for(let k=0;k<5;k++){const a=k*72*Math.PI/180;p+=`<circle cx="${x+Math.cos(a)*7}" cy="${y-30+Math.sin(a)*7}" r="6" fill="${c}"/>`}
  g.innerHTML=p+`<circle cx="${x}" cy="${y-30}" r="5" fill="#ffd54f"/>`;fl.appendChild(g);flowers.push(g)});
-const bee={x:200,y:140,face:1,sc:1,droop:0,flying:false,t:0,raf:0};
-function placeBee(){const y=bee.flying?bee.y:140+bee.droop;$("#bee").setAttribute("transform",`translate(${bee.x.toFixed(1)} ${(bee.flying?bee.y:y).toFixed(1)}) scale(${(bee.sc*bee.face).toFixed(3)} ${bee.sc.toFixed(3)})`)}
+const bee={x:200,y:140,face:1,sc:1,droop:0,flying:false,t:0,raf:0,fat:1,fatC:1,swoop:-1e9};
+const BASE=0.78;
+function placeBee(){const p=bee.pull||0,s=bee.sc*BASE*(1+0.35*p),f=bee.fatC,sx=s*f,sy=s*(f>1?1+(f-1)*0.4:1+(1-f)*0.45);
+ const y=bee.flying?bee.y:140+bee.droop;$("#bee").setAttribute("transform",`translate(${bee.x.toFixed(1)} ${y.toFixed(1)}) scale(${(sx*bee.face).toFixed(3)} ${sy.toFixed(3)})`)}
 function wander(){cancelAnimationFrame(bee.raf);bee.flying=true;let last=performance.now();
  const step=now=>{const dt=Math.min(50,now-last)/1000;last=now;bee.t+=dt*0.55;const t=bee.t;
-  const nx=200+130*Math.sin(t)*Math.cos(t*0.37), ny=125+45*Math.sin(t*1.7+1)+bee.droop*0.5;
-  if(Math.abs(nx-bee.x)>0.05)bee.face=nx>bee.x?1:-1;bee.x=nx;bee.y=ny;placeBee();bee.raf=requestAnimationFrame(step)};
+  const k=(now-bee.swoop)/1700,p=k>0&&k<1?Math.sin(Math.PI*k):0;bee.pull=p;
+  bee.fatC+=(bee.fat-bee.fatC)*Math.min(1,dt*4);
+  const wx=200+130*Math.sin(t)*Math.cos(t*0.37), wy=125+45*Math.sin(t*1.7+1)+bee.droop*0.5;
+  const nx=wx+(195-wx)*p, ny=wy+(150-wy)*p;
+  if(p<0.6&&Math.abs(nx-bee.x)>0.05)bee.face=nx>bee.x?1:-1;bee.x=nx;bee.y=ny;placeBee();bee.raf=requestAnimationFrame(step)};
  bee.raf=requestAnimationFrame(step)}
-function flyCenter(ms){cancelAnimationFrame(bee.raf);return new Promise(res=>{const x0=bee.x,y0=bee.y,x1=170,y1=135,s=performance.now();
- const step=now=>{const k=Math.min(1,(now-s)/ms),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;bee.x=x0+(x1-x0)*e;bee.y=y0+(y1-y0)*e;
-  bee.face=x1>=x0?1:-1;if(k>=1)bee.face=1;placeBee();k<1?bee.raf=requestAnimationFrame(step):res()};bee.raf=requestAnimationFrame(step)})}
 let actx,bufs={},soundOn=localStorage.getItem("beeSound")!=="off";
 function snd(){$("#snd").textContent=soundOn?"🔊":"🔇"}
 async function unlock(){if(actx){actx.resume();return}try{actx=new (window.AudioContext||window.webkitAudioContext)();actx.resume();
@@ -61,7 +63,7 @@ function ask(){bee.picked=false;
  q.choices.forEach((c,k)=>{const b=document.createElement("button");b.className="choice";
   b.innerHTML=`<b>${"ABCD"[k]}</b><span></span>`;b.querySelector("span").textContent=c;
   b.onclick=()=>pick(k);box.appendChild(b)});
- bee.x=200;wander();show("quiz");upMeta();$("#quiz").style.animation="none";void $("#quiz").offsetWidth;$("#quiz").style.animation="";clearInterval(tInt);clearTimeout(bee.narT);$("#tfill").style.width="100%";$("#tsec").textContent="🔈";
+ if(!bee.flying)wander();show("quiz");upMeta();$("#quiz").style.animation="none";void $("#quiz").offsetWidth;$("#quiz").style.animation="";clearInterval(tInt);clearTimeout(bee.narT);$("#tfill").style.width="100%";$("#tsec").textContent="🔈";
  const nd=play("q"+i);tStart=performance.now()+nd*1000;bee.narT=setTimeout(()=>{tStart=performance.now();runTimer()},nd*1000);
 }
 function runTimer(){clearInterval(tInt);
@@ -73,10 +75,11 @@ function pick(k){clearInterval(tInt);clearTimeout(bee.narT);if(bee.picked)return
  const used=Math.max(0,(performance.now()-tStart)/1000),q=quiz.questions[i],ok=k===q.answer,bs=[...document.querySelectorAll(".choice")];
  bs.forEach(b=>b.disabled=true);bs[q.answer].classList.add("right");if(!ok&&k>=0)bs[k].classList.add("wrong");
  if(ok){points+=100+Math.round(Math.max(0,TLIM-used)/TLIM*100)}bee.timeout=k<0;
- bee.busy=true;flyCenter(650).then(()=>{bee.flying=false;bee.x=170;const d=play(ok?"woohoo":"aww");setTimeout(()=>result(q,ok),Math.min(900,(d||0.3)*1000*0.7))});
+ bee.swoop=performance.now();setTimeout(()=>{const d=play(ok?"woohoo":"aww");setTimeout(()=>result(q,ok),Math.min(900,(d||0.3)*1000*0.7))},350);
 }
 function result(q,ok){
  if(ok){score++;health=Math.min(100,health+HIT);pulse("cheer");flowers.forEach(f=>{f.classList.remove("bloom");void f.offsetWidth;f.classList.add("bloom")})}
+ bee.fat=ok?Math.min(1.75,bee.fat+0.2):shield?bee.fat:Math.max(0.5,bee.fat-0.2);
  if(ok){run++;if(run>=3&&!shield){shield=true;run=0;bee.newShield=true}}
  else{run=0;if(shield){shield=false;bee.blocked=true}else health=Math.max(5,health-MISS);pulse("oops")}
  $("#shield").classList.toggle("hidden",!shield);upMeta();
@@ -84,11 +87,11 @@ function result(q,ok){
  $("#fact").textContent=q.fact;$("#next").textContent=i+1<quiz.questions.length?"Next ➜":"See results";
  $("#feedback").classList.remove("hidden");render();$("#feedback").scrollIntoView({behavior:"smooth",block:"nearest"});
 }
-function end(){cancelAnimationFrame(bee.raf);bee.flying=false;bee.x=200;placeBee();
+function end(){
  const n=quiz.questions.length;
  const [t,m]=health>=75?["🌻 Your bee is thriving!","Amazing! The hive is happy and the meadow is in full bloom."]:health>=45?["🙂 Your bee is doing okay","Not bad! A little more bee knowledge and she'll be thriving."]:["🥀 Your bee needs help!","She's feeling droopy. Watch a few Stevie Bee Shorts and try again!"];
  $("#endTitle").textContent=t;$("#score").textContent=`${score} / ${n}`;$("#endMsg").textContent=m;$("#qnum").textContent="";
- const dead=score===0,buff=score===n,bm=$("#bigMsg");
+ const dead=score===0,buff=score===n,bm=$("#bigMsg");if(dead||buff){cancelAnimationFrame(bee.raf);bee.flying=false;bee.pull=0;bee.fatC=bee.fat;bee.x=200;bee.face=1;placeBee()}
  document.body.classList.toggle("dead",dead);document.body.classList.toggle("buff",buff);
  ["xeyes","legs","halo"].forEach(x=>$("#"+x).classList.toggle("hidden",!dead));$("#eyes").classList.toggle("hidden",dead);
  ["arms","speed","sparkles"].forEach(x=>$("#"+x).classList.toggle("hidden",!buff));
@@ -111,7 +114,7 @@ async function copy(){try{await navigator.clipboard.writeText(shareUrl())}catch(
  $("#copied").classList.remove("hidden");setTimeout(()=>$("#copied").classList.add("hidden"),2000)}
 $("#share").onclick=async()=>{if(navigator.share){try{await navigator.share({title:"Save the Bee!",text:shareText(),url:shareUrl()})}catch(e){}}else copy()};
 $("#copy").onclick=copy;snd();$("#snd").onclick=()=>{soundOn=!soundOn;localStorage.setItem("beeSound",soundOn?"on":"off");snd();if(soundOn)unlock();else stopSnd()};
-$("#go").onclick=()=>{unlock();loadNar();reset();points=0;run=0;shield=false;i=0;score=0;health=60;render();ask()};
+$("#go").onclick=()=>{unlock();loadNar();bee.fat=1;reset();points=0;run=0;shield=false;i=0;score=0;health=60;render();ask()};
 $("#next").onclick=()=>{i++;i<quiz.questions.length?ask():end()};
 $("#again").onclick=()=>{reset();clearInterval(tInt);clearTimeout(bee.narT);stopSnd();health=60;render();show("start")};
 function reset(){document.body.classList.remove("dead","buff","cheer","oops");["xeyes","legs","halo","arms","speed","sparkles"].forEach(x=>$("#"+x).classList.add("hidden"));$("#eyes").classList.remove("hidden")}
