@@ -24,8 +24,11 @@ function flyCenter(ms){cancelAnimationFrame(bee.raf);return new Promise(res=>{co
 let actx,bufs={},soundOn=localStorage.getItem("beeSound")!=="off";
 function snd(){$("#snd").textContent=soundOn?"🔊":"🔇"}
 async function unlock(){if(actx){actx.resume();return}try{actx=new (window.AudioContext||window.webkitAudioContext)();actx.resume();
- for(const n of["woohoo","aww"]){fetch(`sounds/${n}.mp3`).then(r=>r.arrayBuffer()).then(b=>actx.decodeAudioData(b)).then(d=>bufs[n]=d).catch(()=>{})}}catch(e){}}
-function play(n){if(!soundOn||!actx||!bufs[n])return 0;const s=actx.createBufferSource();s.buffer=bufs[n];s.connect(actx.destination);s.start();return bufs[n].duration}
+ for(const n of["woohoo","aww"]){fetch(`sounds/${n}.mp3`).then(r=>r.arrayBuffer()).then(b=>actx.decodeAudioData(b)).then(d=>bufs[n]=d).catch(()=>{})}loadNar()}catch(e){}}
+let cur=null;function stopSnd(){if(cur){try{cur.stop()}catch(e){}cur=null}}
+function play(n){stopSnd();if(!soundOn||!actx||!bufs[n])return 0;const s=actx.createBufferSource();s.buffer=bufs[n];s.connect(actx.destination);s.start();cur=s;return bufs[n].duration}
+function loadNar(){if(!actx||!quiz)return;quiz.questions.forEach((_,n)=>{const key="q"+n;if(bufs[key])return;
+ fetch(`sounds/quizzes/${quiz.id}/q${n+1}.mp3`).then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}).then(b=>actx.decodeAudioData(b)).then(d=>bufs[key]=d).catch(()=>{})})}
 function render(){
  $("#hfill").style.width=health+"%";$("#hfill").style.background=`hsl(${Math.round(health*1.2)} 80% 55%)`;
  const sick=health<40,B=document.body.style;document.body.classList.toggle("sick",sick);document.body.classList.toggle("strong",health>=80);
@@ -58,13 +61,16 @@ function ask(){bee.picked=false;
  q.choices.forEach((c,k)=>{const b=document.createElement("button");b.className="choice";
   b.innerHTML=`<b>${"ABCD"[k]}</b><span></span>`;b.querySelector("span").textContent=c;
   b.onclick=()=>pick(k);box.appendChild(b)});
- bee.x=200;wander();show("quiz");upMeta();clearInterval(tInt);tStart=performance.now();
+ bee.x=200;wander();show("quiz");upMeta();$("#quiz").style.animation="none";void $("#quiz").offsetWidth;$("#quiz").style.animation="";clearInterval(tInt);clearTimeout(bee.narT);$("#tfill").style.width="100%";$("#tsec").textContent="🔈";
+ const nd=play("q"+i);tStart=performance.now()+nd*1000;bee.narT=setTimeout(()=>{tStart=performance.now();runTimer()},nd*1000);
+}
+function runTimer(){clearInterval(tInt);
  tInt=setInterval(()=>{const left=Math.max(0,TLIM-(performance.now()-tStart)/1000);$("#tfill").style.width=left/TLIM*100+"%";$("#tsec").textContent=Math.ceil(left)+"s";
-  if(left<=0){clearInterval(tInt);pick(-1)}},200);$("#quiz").style.animation="none";void $("#quiz").offsetWidth;$("#quiz").style.animation="";
+  if(left<=0){clearInterval(tInt);pick(-1)}},200);
 }
 function upMeta(){$("#pts").textContent=`⭐ ${points} pts`;$("#streak").textContent=shield?"🛡️ Honey shield!":run?`🔥 ${run} in a row`:""}
-function pick(k){clearInterval(tInt);if(bee.picked)return;bee.picked=true;
- const used=(performance.now()-tStart)/1000,q=quiz.questions[i],ok=k===q.answer,bs=[...document.querySelectorAll(".choice")];
+function pick(k){clearInterval(tInt);clearTimeout(bee.narT);if(bee.picked)return;bee.picked=true;stopSnd();
+ const used=Math.max(0,(performance.now()-tStart)/1000),q=quiz.questions[i],ok=k===q.answer,bs=[...document.querySelectorAll(".choice")];
  bs.forEach(b=>b.disabled=true);bs[q.answer].classList.add("right");if(!ok&&k>=0)bs[k].classList.add("wrong");
  if(ok){points+=100+Math.round(Math.max(0,TLIM-used)/TLIM*100)}bee.timeout=k<0;
  bee.busy=true;flyCenter(650).then(()=>{bee.flying=false;bee.x=170;const d=play(ok?"woohoo":"aww");setTimeout(()=>result(q,ok),Math.min(900,(d||0.3)*1000*0.7))});
@@ -104,10 +110,10 @@ const shareText=()=>`I scored ${score}/${quiz.questions.length} on the Stevie Be
 async function copy(){try{await navigator.clipboard.writeText(shareUrl())}catch(e){const t=document.createElement("textarea");t.value=shareUrl();document.body.appendChild(t);t.select();document.execCommand("copy");t.remove()}
  $("#copied").classList.remove("hidden");setTimeout(()=>$("#copied").classList.add("hidden"),2000)}
 $("#share").onclick=async()=>{if(navigator.share){try{await navigator.share({title:"Save the Bee!",text:shareText(),url:shareUrl()})}catch(e){}}else copy()};
-$("#copy").onclick=copy;snd();$("#snd").onclick=()=>{soundOn=!soundOn;localStorage.setItem("beeSound",soundOn?"on":"off");snd();if(soundOn)unlock()};
-$("#go").onclick=()=>{unlock();reset();points=0;run=0;shield=false;i=0;score=0;health=60;render();ask()};
+$("#copy").onclick=copy;snd();$("#snd").onclick=()=>{soundOn=!soundOn;localStorage.setItem("beeSound",soundOn?"on":"off");snd();if(soundOn)unlock();else stopSnd()};
+$("#go").onclick=()=>{unlock();loadNar();reset();points=0;run=0;shield=false;i=0;score=0;health=60;render();ask()};
 $("#next").onclick=()=>{i++;i<quiz.questions.length?ask():end()};
-$("#again").onclick=()=>{reset();clearInterval(tInt);health=60;render();show("start")};
+$("#again").onclick=()=>{reset();clearInterval(tInt);clearTimeout(bee.narT);stopSnd();health=60;render();show("start")};
 function reset(){document.body.classList.remove("dead","buff","cheer","oops");["xeyes","legs","halo","arms","speed","sparkles"].forEach(x=>$("#"+x).classList.add("hidden"));$("#eyes").classList.remove("hidden")}
 load();
 })();
