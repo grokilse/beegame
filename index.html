@@ -12,7 +12,7 @@
   <circle cx="340" cy="50" r="60" fill="url(#sun)"/><circle cx="340" cy="50" r="22" fill="#ffe066"/>
   <path d="M0 230Q100 200 200 225T400 215V300H0z" fill="#7cc95b"/><path d="M0 255Q120 235 220 255T400 250V300H0z" fill="#5fae45"/>
   <g id="flowers"></g>
-  <g id="bee" transform="translate(200 140)"><g id="beeInner">
+  <g id="bee" transform="translate(200 140)"><ellipse id="shield" class="hidden" cx="10" cy="-8" rx="72" ry="62" fill="rgba(255,193,7,.25)" stroke="#ffb300" stroke-width="4"/><g id="beeInner">
    <ellipse class="wing" id="wl" cx="-10" cy="-26" rx="16" ry="24" fill="#e8f7ff" stroke="#9cc" opacity=".9"/>
    <ellipse class="wing" id="wr" cx="12" cy="-26" rx="16" ry="24" fill="#e8f7ff" stroke="#9cc" opacity=".9"/>
    <ellipse cx="0" cy="0" rx="40" ry="30" fill="#ffc107" stroke="#222" stroke-width="3"/>
@@ -31,7 +31,7 @@
   <g id="speed" class="hidden" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".9"><path d="M20 80h60M10 120h80M30 160h50M300 70h70M320 110h60M290 190h80"/></g>
   <g id="sparkles" class="hidden" fill="#fff59d"><path d="M60 50l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/><path d="M330 150l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/><path d="M150 40l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/><path d="M260 30l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/></g>
  </svg>
- <div id="hud"><div id="hlabel">🐝 Bee health</div><div id="hbar"><div id="hfill"></div></div><div id="qnum"></div></div>
+ <div id="hud"><div id="hlabel">🐝 Bee health</div><div id="hbar"><div id="hfill"></div></div><div id="qnum"></div><button id="snd" aria-label="Sound on/off" title="Sound on/off">🔊</button></div>
  <main id="panel">
   <section id="start" class="card">
    <h1>Save the Bee!</h1><p id="qtitle" class="sub">Loading quiz…</p>
@@ -39,9 +39,9 @@
    <button id="go" class="big" disabled>▶ Play</button>
    <p class="tiny">A quiz from <a href="https://www.youtube.com/@steviebee-v2z3o" target="_blank" rel="noopener">Stevie Bee</a> – bee removal &amp; beekeeping</p>
   </section>
-  <section id="quiz" class="card hidden"><h2 id="question"></h2><div id="choices"></div>
+  <section id="quiz" class="card hidden"><div id="qmeta"><span id="pts">⭐ 0 pts</span><span id="streak"></span><span id="tsec">15s</span></div><div id="tbar"><div id="tfill"></div></div><h2 id="question"></h2><div id="choices"></div>
    <div id="feedback" class="hidden"><p id="verdict"></p><p id="fact"></p><button id="next" class="big">Next ➜</button></div></section>
-  <section id="end" class="card hidden"><h2 id="endTitle"></h2><p id="bigMsg" class="bigmsg hidden"></p><p id="score" class="score"></p><p id="endMsg"></p>
+  <section id="end" class="card hidden"><h2 id="endTitle"></h2><p id="bigMsg" class="bigmsg hidden"></p><p id="score" class="score"></p><p id="pointsEnd" class="sub"></p><p id="endMsg"></p><p id="days" class="days hidden"></p><p id="best" class="tiny"></p>
    <div class="row"><button id="share" class="big">📤 Share</button><button id="copy" class="big alt">🔗 Copy link</button></div>
    <p id="copied" class="tiny hidden">Link copied!</p>
    <a class="btn yt" href="https://www.youtube.com/@steviebee-v2z3o/shorts" target="_blank" rel="noopener">▶ Watch more on YouTube</a>
