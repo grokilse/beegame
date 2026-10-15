@@ -1,1 +1,10 @@
-{"default":"honeybee-basics","quizzes":[{"id":"honeybee-basics","title":"How Well Do You Know Honeybees?"}]}
+{
+ "default": "honeybee-basics",
+ "quizzes": [
+  {
+   "id": "honeybee-basics",
+   "title": "How Well Do You Know Honeybees?",
+   "date": "2026-10-14"
+  }
+ ]
+}

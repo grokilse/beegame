@@ -59,3 +59,5 @@ button,.btn{font:inherit;cursor:pointer}
 #shield{animation:glow 1s ease-in-out infinite alternate;filter:drop-shadow(0 0 8px #ffd54f)}@keyframes glow{to{opacity:.55}}
 .days{background:#fff3c4;border:2px dashed #ffb300;border-radius:12px;padding:8px;font-weight:800;text-align:center}
 .mini{border:2px solid #2b2100;background:#fff;border-radius:8px;padding:0 6px;font-size:.9rem}.hearbtn{display:block;width:100%;margin:0 0 10px;padding:8px;border-radius:10px;border:2px dashed #2b2100;background:#fff3c4;font-weight:700}
+.more h3{margin:16px 0 6px;font-size:1rem}.more ul{list-style:none;margin:0;padding:0}.more li a{display:flex;justify-content:space-between;gap:8px;padding:10px 12px;margin:6px 0;border:2px solid #2b2100;border-radius:12px;background:#fff;color:#2b2100;text-decoration:none;font-weight:700}
+.more li a.cur{background:#fff3c4}.more .new{background:#e53935;color:#fff;border-radius:6px;padding:0 6px;font-size:.75rem;margin-left:6px}.more small{color:#8a6500;white-space:nowrap}

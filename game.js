@@ -46,6 +46,11 @@ function narrate(qi,cb){$("#hear").classList.add("hidden");const key="q"+qi;
  const go=()=>{if(qi!==i||bee.picked)return;let d=0;if(soundOn){d=play(key);if(!d||(actx&&actx.state!=="running"))setTimeout(()=>{if(qi===i&&!bee.picked&&(!d||actx.state!=="running"))$("#hear").classList.remove("hidden")},600)}cb(d)};
  if(bufs[key]||!soundOn)return go();let done=false;const t=setTimeout(()=>{if(!done){done=true;go()}},3000);
  loadBuf(key,`sounds/quizzes/${quiz.id}/q${qi+1}.mp3`).then(()=>{if(!done){done=true;clearTimeout(t);go()}})}
+function buildMore(){const idx=window.__idx;if(!idx||!idx.quizzes||idx.quizzes.length<2){document.querySelectorAll(".more").forEach(m=>m.innerHTML="");return}
+ const list=idx.quizzes.map((q,n)=>({...q,n})).sort((a,b)=>(b.date||"").localeCompare(a.date||"")||b.n-a.n),newest=list[0].id;
+ const html="<h3>🐝 More quizzes</h3><ul>"+list.map(q=>{const best=+localStorage.getItem("beeBest:"+q.id)||0,t=q.title.replace(/[<>&"]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[c]));
+  return `<li><a class="${q.id===quiz.id?"cur":""}" href="?quiz=${encodeURIComponent(q.id)}"><span>${t}${q.id===newest?'<span class="new">NEW</span>':""}</span><small>${q.id===quiz.id?"playing":best?"🏆 "+best:"▶"}</small></a></li>`}).join("")+"</ul>";
+ document.querySelectorAll(".more").forEach(m=>m.innerHTML=html)}
 function render(){
  $("#hfill").style.width=health+"%";$("#hfill").style.background=`hsl(${Math.round(health*1.2)} 80% 55%)`;
  const sick=health<40,B=document.body.style;document.body.classList.toggle("sick",sick);document.body.classList.toggle("strong",health>=80);
@@ -66,8 +71,8 @@ async function load(){
   if(!/^[a-z0-9-]+$/i.test(id))id=idx.default;
   let r=await fetch(`quizzes/${id}.json`);
   if(!r.ok)r=await fetch(`quizzes/${idx.default}.json`);
-  quiz=await r.json();
-  $("#qtitle").textContent=quiz.title;preloadSfx();loadNar();$("#go").disabled=false;
+  quiz=await r.json();window.__idx=idx;
+  $("#qtitle").textContent=quiz.title;buildMore();preloadSfx();loadNar();$("#go").disabled=false;
  }catch(e){$("#qtitle").textContent="Couldn't load the quiz. Please refresh."}
  render();
 }
@@ -121,7 +126,7 @@ function end(){
   let s={};try{s=JSON.parse(localStorage.getItem("beeDays"))||{}}catch(e){}
   if(s.last!==today){s.n=s.last===y?(s.n||0)+1:1;s.last=today;localStorage.setItem("beeDays",JSON.stringify(s))}
   dy.textContent=`🐝 Your bee survived ${s.n} day${s.n>1?"s":""} in a row!`;dy.classList.remove("hidden")}
- show("end");if(health>=75&&!buff)pulse("cheer");
+ buildMore();show("end");if(health>=75&&!buff)pulse("cheer");
 }
 const shareUrl=()=>location.origin+location.pathname+(quiz?`?quiz=${quiz.id}`:"");
 const shareText=()=>`I scored ${score}/${quiz.questions.length} on the Stevie Bee quiz! Can you keep the bee healthy? 🐝`;

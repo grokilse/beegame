@@ -4,7 +4,7 @@ Static site (HTML/CSS/JS, SVG animation). Open `index.html?quiz=<id>`.
 ## Add a new quiz
 1. Copy `quizzes/honeybee-basics.json` to `quizzes/<new-id>.json` (id: letters, numbers, dashes).
 2. Edit `title` and `questions` (`choices`: 2–4 answers, `answer`: 0-based index of the right one, `fact`: shown after answering).
-3. Add `{"id":"<new-id>","title":"..."}` to `quizzes/index.json` (set `default` to make it the no-param quiz).
+3. Append `{"id":"<new-id>","title":"...","date":"YYYY-MM-DD"}` to `quizzes` in `quizzes/index.json` **and set `"default": "<new-id>"`** so the main link (no `?quiz=`) opens the newest quiz. The "More quizzes" list on the start/end screens is built from this file, newest first (by `date`, then list order), with the newest marked NEW. Each quiz keeps its own personal best (localStorage `beeBest:<id>`).
 4. Commit + push; link from the Short: `https://<site>/?quiz=<new-id>`.
 
 ## Question narration (automatic for new quizzes)
