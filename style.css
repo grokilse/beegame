@@ -3,7 +3,7 @@
 #scene{width:100%;height:42vh;min-height:220px;display:block}
 .wing{transform-box:fill-box;transform-origin:50% 100%;animation:flap var(--flap,.12s) infinite alternate}
 @keyframes flap{to{transform:scaleY(.35)}}
-#bee{transition:transform .8s}
+
 #beeInner{animation:hover 1.6s ease-in-out infinite;transition:filter .5s,transform .5s;filter:saturate(var(--sat,1)) brightness(var(--bri,1))}
 @keyframes hover{50%{transform:translate(6px,-8px) rotate(-3deg)}}
 .sick #beeInner{animation:sag 2.4s ease-in-out infinite}

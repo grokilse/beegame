@@ -13,6 +13,14 @@ const flowers=[];
  g.innerHTML=p+`<circle cx="${x}" cy="${y-30}" r="5" fill="#ffd54f"/>`;fl.appendChild(g);flowers.push(g)});
 const bee={x:200,y:140,face:1,sc:1,droop:0,flying:false,t:0,raf:0,fat:1,fatC:1,swoop:-1e9};
 const BASE=0.78;
+const LINES={c:["Good job!","Bee-autiful!","You're the bee's knees!","Sweet as honey!","Buzz-tastic!"],w:["Come on, beekeeper!","You can do it!","Don't give up on me!","I believe in you, beekeeper!","Help me out here!"]},lastL={};
+function placeBubble(){const g=$("#bubble");if(g.classList.contains("hidden"))return;const t=$("#btext"),w=t.getComputedTextLength()+24,
+ sv=$("#scene").getBoundingClientRect(),vw=Math.min(400,400*(sv.width/sv.height)/(4/3)),x0=200-vw/2+6,x=Math.min(400-x0-w/2,Math.max(x0+w/2,bee.x)),y=Math.max(30,bee.y-70);t.setAttribute("x",x);t.setAttribute("y",y+5);
+ const r=$("#bbox");r.setAttribute("x",x-w/2);r.setAttribute("y",y-15);r.setAttribute("width",w);r.setAttribute("height",30);
+ $("#btail").setAttribute("d",`M${bee.x-6} ${y+14}l${6} 12l${6}-12z`)}
+function react(ok){const k=ok?"c":"w";let n;do{n=Math.floor(Math.random()*5)}while(n===lastL[k]);lastL[k]=n;
+ $("#btext").textContent=LINES[k][n];$("#bubble").classList.remove("hidden");placeBubble();
+ const d=play(k+(n+1));setTimeout(()=>{$("#bubble").classList.add("hidden");$("#feedback").classList.remove("hidden");$("#feedback").scrollIntoView({behavior:"smooth",block:"nearest"})},Math.max(1300,d*1000+400))}
 function placeBee(){const p=bee.pull||0,s=bee.sc*BASE*(1+0.35*p),f=bee.fatC,sx=s*f,sy=s*(f>1?1+(f-1)*0.4:1+(1-f)*0.45);
  const y=bee.flying?bee.y:140+bee.droop;$("#bee").setAttribute("transform",`translate(${bee.x.toFixed(1)} ${y.toFixed(1)}) scale(${(sx*bee.face).toFixed(3)} ${sy.toFixed(3)})`)}
 function wander(){cancelAnimationFrame(bee.raf);bee.flying=true;let last=performance.now();
@@ -21,12 +29,12 @@ function wander(){cancelAnimationFrame(bee.raf);bee.flying=true;let last=perform
   bee.fatC+=(bee.fat-bee.fatC)*Math.min(1,dt*4);
   const wx=200+130*Math.sin(t)*Math.cos(t*0.37), wy=125+45*Math.sin(t*1.7+1)+bee.droop*0.5;
   const nx=wx+(195-wx)*p, ny=wy+(150-wy)*p;
-  if(p<0.6&&Math.abs(nx-bee.x)>0.05)bee.face=nx>bee.x?1:-1;bee.x=nx;bee.y=ny;placeBee();bee.raf=requestAnimationFrame(step)};
+  if(p<0.6&&Math.abs(nx-bee.x)>0.05)bee.face=nx>bee.x?1:-1;bee.x=nx;bee.y=ny;placeBee();placeBubble();bee.raf=requestAnimationFrame(step)};
  bee.raf=requestAnimationFrame(step)}
 let actx,bufs={},soundOn=localStorage.getItem("beeSound")!=="off";
 function snd(){$("#snd").textContent=soundOn?"🔊":"🔇"}
 async function unlock(){if(actx){actx.resume();return}try{actx=new (window.AudioContext||window.webkitAudioContext)();actx.resume();
- for(const n of["woohoo","aww"]){fetch(`sounds/${n}.mp3`).then(r=>r.arrayBuffer()).then(b=>actx.decodeAudioData(b)).then(d=>bufs[n]=d).catch(()=>{})}loadNar()}catch(e){}}
+ for(const n of["woohoo","aww","c1","c2","c3","c4","c5","w1","w2","w3","w4","w5"]){fetch(`sounds/${n[1]>="0"&&n[1]<="9"?"react/"+n:n}.mp3`).then(r=>r.arrayBuffer()).then(b=>actx.decodeAudioData(b)).then(d=>bufs[n]=d).catch(()=>{})}loadNar()}catch(e){}}
 let cur=null;function stopSnd(){if(cur){try{cur.stop()}catch(e){}cur=null}}
 function play(n){stopSnd();if(!soundOn||!actx||!bufs[n])return 0;const s=actx.createBufferSource();s.buffer=bufs[n];s.connect(actx.destination);s.start();cur=s;return bufs[n].duration}
 function loadNar(){if(!actx||!quiz)return;quiz.questions.forEach((_,n)=>{const key="q"+n;if(bufs[key])return;
@@ -75,7 +83,7 @@ function pick(k){clearInterval(tInt);clearTimeout(bee.narT);if(bee.picked)return
  const used=Math.max(0,(performance.now()-tStart)/1000),q=quiz.questions[i],ok=k===q.answer,bs=[...document.querySelectorAll(".choice")];
  bs.forEach(b=>b.disabled=true);bs[q.answer].classList.add("right");if(!ok&&k>=0)bs[k].classList.add("wrong");
  if(ok){points+=100+Math.round(Math.max(0,TLIM-used)/TLIM*100)}bee.timeout=k<0;
- bee.swoop=performance.now();setTimeout(()=>{const d=play(ok?"woohoo":"aww");setTimeout(()=>result(q,ok),Math.min(900,(d||0.3)*1000*0.7))},350);
+ bee.swoop=performance.now();setTimeout(()=>{const d=play(ok?"woohoo":"aww");setTimeout(()=>result(q,ok),Math.min(900,(d||0.3)*1000*0.7));setTimeout(()=>react(ok),(d||0.5)*1000+150)},350);
 }
 function result(q,ok){
  if(ok){score++;health=Math.min(100,health+HIT);pulse("cheer");flowers.forEach(f=>{f.classList.remove("bloom");void f.offsetWidth;f.classList.add("bloom")})}
@@ -85,7 +93,7 @@ function result(q,ok){
  $("#shield").classList.toggle("hidden",!shield);upMeta();
  $("#verdict").textContent=ok?["🎉 Correct! Your bee is buzzing!","🌼 Yes! She perks right up!","✅ Nailed it!"][i%3]:(bee.blocked?"🛡️ Honey shield blocked it! No health lost.":(bee.timeout?"⏰ Time’s up! ":"😢 Oops! ")+"Your bee is drooping…");if(bee.newShield)$("#verdict").textContent+=" 🛡️ 3 in a row: honey shield earned!";bee.blocked=bee.newShield=false;
  $("#fact").textContent=q.fact;$("#next").textContent=i+1<quiz.questions.length?"Next ➜":"See results";
- $("#feedback").classList.remove("hidden");render();$("#feedback").scrollIntoView({behavior:"smooth",block:"nearest"});
+ render();
 }
 function end(){
  const n=quiz.questions.length;
@@ -116,7 +124,7 @@ $("#share").onclick=async()=>{if(navigator.share){try{await navigator.share({tit
 $("#copy").onclick=copy;snd();$("#snd").onclick=()=>{soundOn=!soundOn;localStorage.setItem("beeSound",soundOn?"on":"off");snd();if(soundOn)unlock();else stopSnd()};
 $("#go").onclick=()=>{unlock();loadNar();bee.fat=1;reset();points=0;run=0;shield=false;i=0;score=0;health=60;render();ask()};
 $("#next").onclick=()=>{i++;i<quiz.questions.length?ask():end()};
-$("#again").onclick=()=>{reset();clearInterval(tInt);clearTimeout(bee.narT);stopSnd();health=60;render();show("start")};
+$("#again").onclick=()=>{$("#bubble").classList.add("hidden");reset();clearInterval(tInt);clearTimeout(bee.narT);stopSnd();health=60;render();show("start")};
 function reset(){document.body.classList.remove("dead","buff","cheer","oops");["xeyes","legs","halo","arms","speed","sparkles"].forEach(x=>$("#"+x).classList.add("hidden"));$("#eyes").classList.remove("hidden")}
 load();
 })();
