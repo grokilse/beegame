@@ -1,0 +1,15 @@
+{
+  "id": "honeybee-basics",
+  "title": "How Well Do You Know Honeybees?",
+  "youtube": "https://youtube.com/@steviebee-v2z3o/shorts",
+  "questions": [
+    {"q": "How many eyes does a honeybee have?", "choices": ["2", "5", "8"], "answer": 1,
+     "fact": "Five! Two big compound eyes, plus three tiny simple eyes (ocelli) on top of the head that help sense light."},
+    {"q": "Which honeybees in the hive are male?", "choices": ["Workers", "The queen", "Drones"], "answer": 2,
+     "fact": "Drones are the males. Every worker bee is female, and so is the queen."},
+    {"q": "About how many flowers do bees visit to make one pound of honey?", "choices": ["About 2 million", "About 20,000", "About 500"], "answer": 0,
+     "fact": "Around 2 million flower visits go into a single pound of honey. That's a lot of flying!"},
+    {"q": "How many times can a worker honeybee sting you?", "choices": ["As many as it wants", "Only once", "Three times"], "answer": 1,
+     "fact": "Just once. Her barbed stinger gets stuck in skin and she dies. Bumblebees have smooth stingers and can sting again."}
+  ]
+}

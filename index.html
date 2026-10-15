@@ -1,0 +1,51 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Save the Bee! – Stevie Bee Quiz</title>
+<meta name="description" content="Tap the right answers to keep the bee healthy! A bee quiz game from Stevie Bee.">
+<meta property="og:title" content="Save the Bee! A Stevie Bee Quiz"><meta name="theme-color" content="#ffc107">
+<link rel="stylesheet" href="style.css"></head><body>
+<div id="app">
+ <svg id="scene" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <defs><pattern id="hc" width="30" height="52" patternUnits="userSpaceOnUse"><path d="M15 0l15 9v17l-15 9-15-9V9zM15 35v17" fill="none" stroke="#f6c343" stroke-width="2" opacity=".5"/></pattern>
+  <radialGradient id="sun"><stop offset="0" stop-color="#fff6b0"/><stop offset="1" stop-color="#ffd54f" stop-opacity="0"/></radialGradient></defs>
+  <rect width="400" height="300" fill="#8fd3ff"/><rect width="400" height="300" fill="url(#hc)"/>
+  <circle cx="340" cy="50" r="60" fill="url(#sun)"/><circle cx="340" cy="50" r="22" fill="#ffe066"/>
+  <path d="M0 230Q100 200 200 225T400 215V300H0z" fill="#7cc95b"/><path d="M0 255Q120 235 220 255T400 250V300H0z" fill="#5fae45"/>
+  <g id="flowers"></g>
+  <g id="bee" transform="translate(200 140)"><g id="beeInner">
+   <ellipse class="wing" id="wl" cx="-10" cy="-26" rx="16" ry="24" fill="#e8f7ff" stroke="#9cc" opacity=".9"/>
+   <ellipse class="wing" id="wr" cx="12" cy="-26" rx="16" ry="24" fill="#e8f7ff" stroke="#9cc" opacity=".9"/>
+   <ellipse cx="0" cy="0" rx="40" ry="30" fill="#ffc107" stroke="#222" stroke-width="3"/>
+   <path d="M-12-29v58M8-29v58" stroke="#222" stroke-width="9"/>
+   <path d="M-40 0l-12 0" stroke="#222" stroke-width="4" stroke-linecap="round"/>
+   <circle cx="34" cy="-10" r="22" fill="#ffc107" stroke="#222" stroke-width="3"/>
+   <path id="antL" d="M28-30q-4-14-10-18M40-30q4-14 10-18" fill="none" stroke="#222" stroke-width="3" stroke-linecap="round"/>
+   <circle cx="18" cy="-48" r="3.5" fill="#222"/><circle cx="50" cy="-48" r="3.5" fill="#222"/>
+   <g id="arms" class="hidden"><path d="M-5 22q-30 10-22 34" fill="none" stroke="#222" stroke-width="5"/><circle cx="-24" cy="44" r="11" fill="#ffc107" stroke="#222" stroke-width="3"/><path d="M30 14q34-4 40-30" fill="none" stroke="#222" stroke-width="5"/><circle cx="58" cy="2" r="12" fill="#ffc107" stroke="#222" stroke-width="3"/><circle cx="70" cy="-20" r="6" fill="#222"/></g>
+   <g id="xeyes" class="hidden" stroke="#222" stroke-width="3" stroke-linecap="round"><path d="M24-18l8 8M32-18l-8 8M38-18l8 8M46-18l-8 8"/></g>
+   <g id="legs" class="hidden" stroke="#222" stroke-width="3" stroke-linecap="round"><path d="M-15 28v12M0 30v12M15 28v12"/></g>
+   <g id="eyes"><ellipse cx="28" cy="-14" rx="4" ry="5" fill="#222"/><ellipse cx="42" cy="-14" rx="4" ry="5" fill="#222"/></g>
+   <circle cx="22" cy="-4" r="4" fill="#ff8a80" opacity=".6"/><circle cx="48" cy="-4" r="4" fill="#ff8a80" opacity=".6"/>
+   <path id="mouth" d="M28-3q7 8 14 0" fill="none" stroke="#222" stroke-width="3" stroke-linecap="round"/>
+  </g><ellipse id="halo" class="hidden" cx="34" cy="85" rx="20" ry="6" fill="none" stroke="#ffd700" stroke-width="4"/></g>
+  <g id="speed" class="hidden" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".9"><path d="M20 80h60M10 120h80M30 160h50M300 70h70M320 110h60M290 190h80"/></g>
+  <g id="sparkles" class="hidden" fill="#fff59d"><path d="M60 50l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/><path d="M330 150l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/><path d="M150 40l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/><path d="M260 30l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/></g>
+ </svg>
+ <div id="hud"><div id="hlabel">🐝 Bee health</div><div id="hbar"><div id="hfill"></div></div><div id="qnum"></div></div>
+ <main id="panel">
+  <section id="start" class="card">
+   <h1>Save the Bee!</h1><p id="qtitle" class="sub">Loading quiz…</p>
+   <p>Tap the right answers to keep our bee buzzing. Wrong answers make her droop!</p>
+   <button id="go" class="big" disabled>▶ Play</button>
+   <p class="tiny">A quiz from <a href="https://www.youtube.com/@steviebee-v2z3o" target="_blank" rel="noopener">Stevie Bee</a> – bee removal &amp; beekeeping</p>
+  </section>
+  <section id="quiz" class="card hidden"><h2 id="question"></h2><div id="choices"></div>
+   <div id="feedback" class="hidden"><p id="verdict"></p><p id="fact"></p><button id="next" class="big">Next ➜</button></div></section>
+  <section id="end" class="card hidden"><h2 id="endTitle"></h2><p id="bigMsg" class="bigmsg hidden"></p><p id="score" class="score"></p><p id="endMsg"></p>
+   <div class="row"><button id="share" class="big">📤 Share</button><button id="copy" class="big alt">🔗 Copy link</button></div>
+   <p id="copied" class="tiny hidden">Link copied!</p>
+   <a class="btn yt" href="https://www.youtube.com/@steviebee-v2z3o/shorts" target="_blank" rel="noopener">▶ Watch more on YouTube</a>
+   <a class="btn sub" href="https://www.youtube.com/@steviebee-v2z3o?sub_confirmation=1" target="_blank" rel="noopener">🔔 Subscribe to Stevie Bee</a>
+   <button id="again" class="link">Play again</button></section>
+ </main>
+</div><script src="game.js"></script></body></html>
