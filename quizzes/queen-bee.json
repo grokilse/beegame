@@ -1,0 +1,15 @@
+{
+  "id": "queen-bee",
+  "title": "Queen Bee Quiz",
+  "youtube": "https://youtube.com/@steviebee-v2z3o/shorts",
+  "questions": [
+    {"q": "About how many eggs can a queen bee lay in one day during peak season?", "choices": ["About 20", "About 200", "Up to about 2,000"], "answer": 2,
+     "fact": "Up to about 2,000 eggs a day in peak season. She's the mother of almost every bee in the hive!"},
+    {"q": "What do nurse bees feed a larva to raise a new queen?", "choices": ["Honey", "Royal jelly", "Pollen only"], "answer": 1,
+     "fact": "Royal jelly! All young larvae get some at first, but a future queen is fed royal jelly the whole time she's a larva."},
+    {"q": "How many days does a queen take to grow from egg to adult?", "choices": ["16 days", "21 days", "24 days"], "answer": 0,
+     "fact": "Just 16 days. Worker bees take about 21 days and drones about 24."},
+    {"q": "How long can a queen honeybee live?", "choices": ["About 6 weeks", "Several years", "About 20 years"], "answer": 1,
+     "fact": "Often 2 to 3 years, sometimes up to about 5. A summer worker bee lives only about 6 weeks."}
+  ]
+}
