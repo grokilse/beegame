@@ -1,0 +1,15 @@
+{
+  "id": "honey",
+  "title": "Honey Quiz",
+  "youtube": "https://youtube.com/@steviebee-v2z3o/shorts",
+  "questions": [
+    {"q": "About how much honey does one worker bee make in her whole life?", "choices": ["About 1/12 of a teaspoon", "About 1 cup", "About 1 pound"], "answer": 0,
+     "fact": "Only about 1/12 of a teaspoon! It takes thousands of bees working together to fill a single jar."},
+    {"q": "How do bees dry watery nectar into thick honey?", "choices": ["They bake it in the sun", "They fan it with their wings", "They freeze it overnight"], "answer": 1,
+     "fact": "They fan their wings! The airflow evaporates water from the nectar until it becomes honey."},
+    {"q": "What do bees seal a finished cell of honey with?", "choices": ["Pollen", "Mud", "A beeswax cap"], "answer": 2,
+     "fact": "A beeswax cap. Worker bees make wax from special glands on the underside of their abdomen."},
+    {"q": "Does sealed honey ever spoil?", "choices": ["Almost never", "After about a week", "After about a month"], "answer": 0,
+     "fact": "Almost never! Edible honey has been found in ancient Egyptian tombs."}
+  ]
+}

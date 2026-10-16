@@ -1,5 +1,5 @@
 {
- "default": "queen-bee",
+ "default": "honey",
  "quizzes": [
   {
    "id": "honeybee-basics",
@@ -10,6 +10,11 @@
    "id": "queen-bee",
    "title": "Queen Bee Quiz",
    "date": "2026-10-15"
+  },
+  {
+   "id": "honey",
+   "title": "Honey Quiz",
+   "date": "2026-10-16"
   }
  ]
 }
