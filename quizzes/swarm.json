@@ -1,0 +1,15 @@
+{
+  "id": "swarm",
+  "title": "Bee Swarm Quiz",
+  "youtube": "https://youtube.com/@steviebee-v2z3o/shorts",
+  "questions": [
+    {"q": "Why do honeybees swarm?", "choices": ["To start a new colony", "To chase away wasps", "To find water"], "answer": 0,
+     "fact": "To start a new colony! Swarming is how a honeybee colony reproduces, splitting one colony into two."},
+    {"q": "Which queen leaves the hive with the swarm?", "choices": ["A brand-new queen", "The old queen", "No queen goes"], "answer": 1,
+     "fact": "The old queen! She leaves with thousands of workers, and a new queen takes over the old hive."},
+    {"q": "What do bees do right before they swarm?", "choices": ["Sleep for a day", "Build extra wax", "Fill up on honey"], "answer": 2,
+     "fact": "They fill up on honey for the trip. With full bellies and no home to defend, swarms are usually pretty gentle."},
+    {"q": "Who picks the swarm's new home?", "choices": ["Scout bees", "The queen", "The drones"], "answer": 0,
+     "fact": "Scout bees! They inspect possible homes and dance to vote until the swarm agrees on the best spot."}
+  ]
+}
