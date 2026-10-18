@@ -1,0 +1,15 @@
+{
+  "id": "worker-bee",
+  "title": "Worker Bee Quiz",
+  "youtube": "https://youtube.com/@steviebee-v2z3o/shorts",
+  "questions": [
+    {"q": "Are worker bees male or female?", "choices": ["All male", "All female", "Half and half"], "answer": 1,
+     "fact": "All female! Every worker bee is a girl. The male honeybees are called drones."},
+    {"q": "What is a new worker bee's first job?", "choices": ["Cleaning cells", "Guarding the door", "Collecting nectar"], "answer": 0,
+     "fact": "Cleaning cells! Young workers start by tidying up cells so the queen can lay eggs in them."},
+    {"q": "What job do worker bees do last?", "choices": ["Feeding babies", "Making wax", "Foraging outside"], "answer": 2,
+     "fact": "Foraging! The oldest workers fly out to collect nectar, pollen, and water for the hive."},
+    {"q": "How long does a summer worker bee live?", "choices": ["About 6 weeks", "About 1 year", "About 3 days"], "answer": 0,
+     "fact": "About 6 weeks! Busy summer workers wear out fast, but winter bees can live for months."}
+  ]
+}
