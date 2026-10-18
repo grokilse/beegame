@@ -4,27 +4,32 @@
   {
    "id": "honeybee-basics",
    "title": "How Well Do You Know Honeybees?",
-   "date": "2026-10-14"
+   "date": "2026-10-14",
+   "emoji": "🐝"
   },
   {
    "id": "queen-bee",
    "title": "Queen Bee Quiz",
-   "date": "2026-10-15"
+   "date": "2026-10-15",
+   "emoji": "👑"
   },
   {
    "id": "honey",
    "title": "Honey Quiz",
-   "date": "2026-10-16"
+   "date": "2026-10-16",
+   "emoji": "🍯"
   },
   {
    "id": "swarm",
    "title": "Bee Swarm Quiz",
-   "date": "2026-10-17"
+   "date": "2026-10-17",
+   "emoji": "🌪️"
   },
   {
    "id": "worker-bee",
    "title": "Worker Bee Quiz",
-   "date": "2026-10-18"
+   "date": "2026-10-18",
+   "emoji": "👷‍♀️"
   }
  ]
 }

@@ -3,7 +3,7 @@
 <title>Save the Bee! – Stevie Bee Quiz</title>
 <meta name="description" content="Tap the right answers to keep the bee healthy! A bee quiz game from Stevie Bee.">
 <meta property="og:title" content="Save the Bee! A Stevie Bee Quiz"><meta name="theme-color" content="#ffc107">
-<link rel="stylesheet" href="style.css"></head><body>
+<link rel="stylesheet" href="style.css?v=1792359000"></head><body>
 <div id="app">
  <svg id="scene" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
   <defs><pattern id="hc" width="30" height="52" patternUnits="userSpaceOnUse"><path d="M15 0l15 9v17l-15 9-15-9V9zM15 35v17" fill="none" stroke="#f6c343" stroke-width="2" opacity=".5"/></pattern>
@@ -37,7 +37,7 @@
   <section id="start" class="card">
    <h1>Save the Bee!</h1><p id="qtitle" class="sub">Loading quiz…</p>
    <p>Tap the right answers to keep our bee buzzing. Wrong answers make her droop!</p>
-   <button id="go" class="big" disabled>▶ Play</button><div class="more"></div>
+   <button id="go" class="big" disabled>▶ Play</button><button class="big alt pickbtn">📚 Pick a Quiz 🐝</button>
    <p class="tiny">A quiz from <a href="https://www.youtube.com/@steviebee-v2z3o" target="_blank" rel="noopener">Stevie Bee</a> – bee removal &amp; beekeeping</p>
   </section>
   <section id="quiz" class="card hidden"><div id="qmeta"><span id="pts">⭐ 0 pts</span><span id="streak"></span><span><button id="replay" class="mini" title="Replay question" aria-label="Replay question">🔁</button> <span id="tsec">15s</span></span></div><button id="hear" class="hidden hearbtn">🔊 Tap to hear the question</button><div id="tbar"><div id="tfill"></div></div><h2 id="question"></h2><div id="choices"></div>
@@ -47,6 +47,8 @@
    <p id="copied" class="tiny hidden">Link copied!</p>
    <a class="btn yt" href="https://www.youtube.com/@steviebee-v2z3o/shorts" target="_blank" rel="noopener">▶ Watch more on YouTube</a>
    <a class="btn sub" href="https://www.youtube.com/@steviebee-v2z3o?sub_confirmation=1" target="_blank" rel="noopener">🔔 Subscribe to Stevie Bee</a>
-   <button id="again" class="link">Play again</button><div class="more"></div></section>
+   <button class="big alt pickbtn">📚 Pick a Quiz 🐝</button>
+   <button id="again" class="link">Play again</button></section>
+  <section id="menu" class="card hidden"><h2>📚 Pick a Quiz 🐝</h2><p class="sub">Every Stevie Bee quiz so far, newest first. Tap one to play!</p><ul id="mlist" class="mlist"><li class="tiny">Loading quizzes…</li></ul><button id="mback" class="link">◀ Back</button></section>
  </main>
-</div><script src="game.js?v=1792349783"></script></body></html>
+</div><script src="game.js?v=1792359000"></script></body></html>

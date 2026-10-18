@@ -46,11 +46,16 @@ function narrate(qi,cb){$("#hear").classList.add("hidden");const key="q"+qi;
  const go=()=>{if(qi!==i||bee.picked)return;let d=0;if(soundOn){d=play(key);if(!d||(actx&&actx.state!=="running"))setTimeout(()=>{if(qi===i&&!bee.picked&&(!d||actx.state!=="running"))$("#hear").classList.remove("hidden")},600)}cb(d)};
  if(bufs[key]||!soundOn)return go();let done=false;const t=setTimeout(()=>{if(!done){done=true;go()}},3000);
  loadBuf(key,`sounds/quizzes/${quiz.id}/q${qi+1}.mp3`).then(()=>{if(!done){done=true;clearTimeout(t);go()}})}
-function buildMore(){const idx=window.__idx;if(!idx||!idx.quizzes||idx.quizzes.length<2){document.querySelectorAll(".more").forEach(m=>m.innerHTML="");return}
- const list=idx.quizzes.map((q,n)=>({...q,n})).sort((a,b)=>(b.date||"").localeCompare(a.date||"")||b.n-a.n),newest=list[0].id;
- const html="<h3>🐝 More quizzes</h3><ul>"+list.map(q=>{const best=+localStorage.getItem("beeBest:"+q.id)||0,t=q.title.replace(/[<>&"]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[c]));
-  return `<li><a class="${q.id===quiz.id?"cur":""}" href="?quiz=${encodeURIComponent(q.id)}"><span>${t}${q.id===newest?'<span class="new">NEW</span>':""}</span><small>${q.id===quiz.id?"playing":best?"🏆 "+best:"▶"}</small></a></li>`}).join("")+"</ul>";
- document.querySelectorAll(".more").forEach(m=>m.innerHTML=html)}
+const EMO=[[/queen/i,"👑"],[/honey(?!bee)/i,"🍯"],[/swarm/i,"🌪️"],[/worker/i,"👷‍♀️"],[/drone/i,"🐝"],[/pollen|flower/i,"🌼"],[/hive|comb/i,"🏠"],[/wax/i,"🕯️"],[/sting/i,"⚡"]];
+const esc=s=>String(s).replace(/[<>&"]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[c]));
+function emo(q){if(q.emoji)return q.emoji;const s=q.id+" "+q.title;for(const[r,e]of EMO)if(r.test(s))return e;return "🐝"}
+function nice(d){if(!/^\d{4}-\d{2}-\d{2}$/.test(d||""))return "";const[y,m,dd]=d.split("-").map(Number);return new Date(y,m-1,dd).toLocaleDateString("en-US",{month:"short",day:"numeric"})}
+function buildMore(){const idx=window.__idx,ul=$("#mlist");if(!ul)return;if(!idx||!idx.quizzes||!idx.quizzes.length){ul.innerHTML='<li class="tiny">No quizzes yet.</li>';return}
+ const list=idx.quizzes.map((q,n)=>({...q,n})).sort((a,b)=>(b.date||"").localeCompare(a.date||"")||b.n-a.n),newest=list[0].id,cur=quiz&&!menuMode?quiz.id:"";
+ ul.innerHTML=list.map(q=>{const best=+localStorage.getItem("beeBest:"+q.id)||0,d=nice(q.date);
+  return `<li><a class="${q.id===cur?"cur":""}" href="?quiz=${encodeURIComponent(q.id)}"><span class="me">${esc(emo(q))}</span><span class="mt">${esc(q.title)}${q.id===newest?'<span class="new">NEW</span>':""}${d?`<small class="md">${esc(d)}</small>`:""}</span><small class="mb">${q.id===cur?"playing":best?"🏆 "+best:"▶ Play"}</small></a></li>`}).join("")}
+let menuMode=false,menuFrom="start";
+function openMenu(){menuFrom=["start","end"].find(s=>!$("#"+s).classList.contains("hidden"))||"start";buildMore();show("menu");$("#menu").scrollIntoView({behavior:"smooth",block:"start"})}
 function render(){
  $("#hfill").style.width=health+"%";$("#hfill").style.background=`hsl(${Math.round(health*1.2)} 80% 55%)`;
  const sick=health<40,B=document.body.style;document.body.classList.toggle("sick",sick);document.body.classList.toggle("strong",health>=80);
@@ -63,16 +68,17 @@ function render(){
  flowers.forEach((f,k)=>f.classList.toggle("wilt",k>=alive));
 }
 function pulse(c){document.body.classList.remove("cheer","oops");void document.body.offsetWidth;document.body.classList.add(c)}
-function show(id){["start","quiz","end"].forEach(s=>$("#"+s).classList.toggle("hidden",s!==id))}
+function show(id){["start","quiz","end","menu"].forEach(s=>$("#"+s).classList.toggle("hidden",s!==id))}
 async function load(){
  try{
   const idx=await (await fetch("quizzes/index.json")).json();
   let id=params.get("quiz")||idx.default;
+  if(/^(menu|all|list)$/i.test(id)||params.has("menu")){menuMode=true;id=idx.default}
   if(!/^[a-z0-9-]+$/i.test(id))id=idx.default;
   let r=await fetch(`quizzes/${id}.json`);
   if(!r.ok)r=await fetch(`quizzes/${idx.default}.json`);
   quiz=await r.json();window.__idx=idx;
-  $("#qtitle").textContent=quiz.title;buildMore();preloadSfx();loadNar();$("#go").disabled=false;
+  $("#qtitle").textContent=quiz.title;buildMore();preloadSfx();loadNar();$("#go").disabled=false;if(menuMode)show("menu");
  }catch(e){$("#qtitle").textContent="Couldn't load the quiz. Please refresh."}
  render();
 }
@@ -139,5 +145,7 @@ $("#go").onclick=()=>{unlock();loadNar();preloadSfx();bee.fat=1;reset();points=0
 $("#next").onclick=()=>{i++;i<quiz.questions.length?ask():end()};
 $("#again").onclick=()=>{$("#bubble").classList.add("hidden");reset();clearInterval(tInt);clearTimeout(bee.narT);stopSnd();health=60;render();show("start")};
 function reset(){document.body.classList.remove("dead","buff","cheer","oops");["xeyes","legs","halo","arms","speed","sparkles"].forEach(x=>$("#"+x).classList.add("hidden"));$("#eyes").classList.remove("hidden")}
+document.querySelectorAll(".pickbtn").forEach(b=>b.onclick=openMenu);
+$("#mback").onclick=()=>{if(menuMode){menuMode=false;buildMore();history.replaceState(null,"",location.pathname)}show(menuFrom)};
 load();
 })();
