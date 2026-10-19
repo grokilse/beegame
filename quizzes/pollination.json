@@ -1,0 +1,15 @@
+{
+  "id": "pollination",
+  "title": "Bee Pollination Quiz",
+  "youtube": "https://youtube.com/@steviebee-v2z3o/shorts",
+  "questions": [
+    {"q": "What do bees carry from flower to flower that helps plants make fruit and seeds?", "choices": ["Pollen", "Water", "Wax"], "answer": 0,
+     "fact": "Pollen! When pollen moves from one flower to another, the plant can grow fruit and seeds. That's called pollination."},
+    {"q": "Where does a honeybee carry pollen home?", "choices": ["On its antennae", "In baskets on its back legs", "Inside its stinger"], "answer": 1,
+     "fact": "Pollen baskets! Honeybees pack pollen into little baskets on their back legs and fly it home to feed baby bees."},
+    {"q": "Which of these foods needs bees to pollinate it?", "choices": ["Rice", "Wheat", "Almonds"], "answer": 2,
+     "fact": "Almonds! Almond trees need bees, and beekeepers bring huge numbers of hives to almond orchards every spring. Rice and wheat are pollinated by the wind."},
+    {"q": "About how many bites of our food depend on pollinators like bees?", "choices": ["About 1 in 3 bites", "About 1 in 100 bites", "Every single bite"], "answer": 0,
+     "fact": "About 1 in 3! Fruits, veggies, and nuts that bees and other pollinators help grow make up about a third of what we eat."}
+  ]
+}

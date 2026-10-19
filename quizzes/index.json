@@ -1,5 +1,5 @@
 {
- "default": "worker-bee",
+ "default": "pollination",
  "quizzes": [
   {
    "id": "honeybee-basics",
@@ -30,6 +30,12 @@
    "title": "Worker Bee Quiz",
    "date": "2026-10-18",
    "emoji": "👷‍♀️"
+  },
+  {
+   "id": "pollination",
+   "title": "Bee Pollination Quiz",
+   "date": "2026-10-19",
+   "emoji": "🌸"
   }
  ]
 }
