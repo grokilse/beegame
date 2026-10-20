@@ -1,5 +1,5 @@
 {
- "default": "pollination",
+ "default": "beeswax",
  "quizzes": [
   {
    "id": "honeybee-basics",
@@ -36,6 +36,12 @@
    "title": "Bee Pollination Quiz",
    "date": "2026-10-19",
    "emoji": "🌸"
+  },
+  {
+   "id": "beeswax",
+   "title": "Beeswax & Honeycomb Quiz",
+   "date": "2026-10-20",
+   "emoji": "🕯️"
   }
  ]
 }

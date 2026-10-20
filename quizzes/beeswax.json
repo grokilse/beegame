@@ -1,0 +1,15 @@
+{
+  "id": "beeswax",
+  "title": "Beeswax & Honeycomb Quiz",
+  "youtube": "https://youtube.com/@steviebee-v2z3o/shorts",
+  "questions": [
+    {"q": "What shape are the little rooms in a honeycomb?", "choices": ["Circles", "Squares", "Hexagons (6 sides)"], "answer": 2,
+     "fact": "Hexagons! Six-sided cells fit together with no gaps, so bees get the most storage space while using the least wax."},
+    {"q": "Where does beeswax come from?", "choices": ["Bees make it from glands on their bellies", "Bees scrape it off tree bark", "Bees find it inside flowers"], "answer": 0,
+     "fact": "From their bellies! Young worker bees have special wax glands under their abdomens that make tiny flakes of wax, which they chew and shape into comb."},
+    {"q": "Besides honey, what else do bees keep in honeycomb cells?", "choices": ["Pebbles and sand", "Baby bees and pollen", "Leaves and twigs"], "answer": 1,
+     "fact": "Baby bees and pollen! The queen lays eggs in the cells, and bees also pack pollen there as food for the growing babies."},
+    {"q": "Which of these do people make with beeswax?", "choices": ["Glass windows", "Candles", "Bricks"], "answer": 1,
+     "fact": "Candles! Beeswax is also used in lip balm, crayons, and wood polish, and beeswax candles smell a little like honey."}
+  ]
+}
