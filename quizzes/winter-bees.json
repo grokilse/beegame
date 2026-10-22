@@ -1,0 +1,15 @@
+{
+  "id": "winter-bees",
+  "title": "Bees in Winter Quiz",
+  "youtube": "https://youtube.com/@steviebee-v2z3o/shorts",
+  "questions": [
+    {"q": "How do honeybees stay warm in winter?", "choices": ["They fly south like birds", "They huddle together in a big ball", "They dig a hole underground"], "answer": 1,
+     "fact": "They huddle! Bees pack into a ball called a winter cluster and shiver their wing muscles to make heat, keeping the middle toasty even when it's freezing outside."},
+    {"q": "What do honeybees eat during the winter?", "choices": ["The honey they saved up", "Fresh flowers", "Snow"], "answer": 0,
+     "fact": "Their saved honey! Bees spend all summer storing honey so the colony has food to eat when no flowers are blooming."},
+    {"q": "What happens to the drone (boy) bees when fall comes?", "choices": ["They become the new queen", "They go to sleep until spring", "The worker bees push them out of the hive"], "answer": 2,
+     "fact": "They get pushed out! Drones don't gather food or help keep the hive warm, so the workers kick them out to save honey for winter."},
+    {"q": "How long can a worker bee born in the fall live?", "choices": ["About 1 day", "Several months", "10 years"], "answer": 1,
+     "fact": "Several months! Summer worker bees live about 6 weeks, but special winter bees can live 4 to 6 months to carry the colony through to spring."}
+  ]
+}

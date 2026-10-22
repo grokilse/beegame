@@ -1,5 +1,5 @@
 {
- "default": "beeswax",
+ "default": "winter-bees",
  "quizzes": [
   {
    "id": "honeybee-basics",
@@ -42,6 +42,12 @@
    "title": "Beeswax & Honeycomb Quiz",
    "date": "2026-10-20",
    "emoji": "🕯️"
+  },
+  {
+   "id": "winter-bees",
+   "title": "Bees in Winter Quiz",
+   "date": "2026-10-22",
+   "emoji": "❄️"
   }
  ]
 }
