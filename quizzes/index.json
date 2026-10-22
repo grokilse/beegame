@@ -1,5 +1,5 @@
 {
- "default": "winter-bees",
+ "default": "bee-dance",
  "quizzes": [
   {
    "id": "honeybee-basics",
@@ -48,6 +48,12 @@
    "title": "Bees in Winter Quiz",
    "date": "2026-10-22",
    "emoji": "❄️"
+  },
+  {
+   "id": "bee-dance",
+   "title": "Bee Dance Quiz",
+   "date": "2026-10-22",
+   "emoji": "💃"
   }
  ]
 }

@@ -1,0 +1,15 @@
+{
+  "id": "bee-dance",
+  "title": "Bee Dance Quiz",
+  "youtube": "https://youtube.com/@steviebee-v2z3o/shorts",
+  "questions": [
+    {"q": "How does a honeybee tell her sisters where to find flowers?", "choices": ["She writes a note", "She does a special dance", "She buzzes a song"], "answer": 1,
+     "fact": "She dances! A forager bee does a 'waggle dance' on the honeycomb to show the other bees which way to fly and how far to go."},
+    {"q": "What does the 'waggle' part of the dance show?", "choices": ["The direction and distance to the food", "How old the bee is", "What color the hive is"], "answer": 0,
+     "fact": "Direction and distance! The angle of the waggle points the way compared to the sun, and a longer waggle means the flowers are farther away."},
+    {"q": "What dance do bees do when the flowers are very close to the hive?", "choices": ["The tango", "The hokey pokey", "The round dance"], "answer": 2,
+     "fact": "The round dance! When food is close by, a bee runs in little circles to say 'it's nearby, go look around!'"},
+    {"q": "Where do honeybees usually do their dances?", "choices": ["Up in the sky", "On the honeycomb inside the dark hive", "On top of flowers"], "answer": 1,
+     "fact": "Inside the dark hive! The other bees can't see much in there, so they follow the dancer closely and feel her moves and vibrations."}
+  ]
+}
