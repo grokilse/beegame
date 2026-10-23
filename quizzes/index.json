@@ -1,5 +1,5 @@
 {
- "default": "bee-dance",
+ "default": "bee-senses",
  "quizzes": [
   {
    "id": "honeybee-basics",
@@ -54,6 +54,12 @@
    "title": "Bee Dance Quiz",
    "date": "2026-10-22",
    "emoji": "💃"
+  },
+  {
+   "id": "bee-senses",
+   "title": "Bee Senses Quiz",
+   "date": "2026-10-23",
+   "emoji": "👀"
   }
  ]
 }

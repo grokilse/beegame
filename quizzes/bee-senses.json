@@ -1,0 +1,15 @@
+{
+  "id": "bee-senses",
+  "title": "Bee Senses Quiz",
+  "youtube": "https://youtube.com/@steviebee-v2z3o/shorts",
+  "questions": [
+    {"q": "How many eyes does a honeybee have?", "choices": ["2", "5", "8"], "answer": 1,
+     "fact": "Five! Bees have 2 big compound eyes on the sides of their head and 3 tiny simple eyes on top that help them sense light."},
+    {"q": "What do bees mostly use to smell?", "choices": ["Their antennae", "Their wings", "Their legs"], "answer": 0,
+     "fact": "Their antennae! A bee's antennae are covered in tiny smell sensors, so she can sniff out flowers and tell hive-mates from strangers."},
+    {"q": "Which kind of light can bees see that people can't?", "choices": ["Red light", "Moonlight", "Ultraviolet light"], "answer": 2,
+     "fact": "Ultraviolet! Many flowers have hidden UV patterns, like landing strips, that point bees right to the nectar."},
+    {"q": "Which color looks dark, almost black, to a honeybee?", "choices": ["Blue", "Red", "Yellow"], "answer": 1,
+     "fact": "Red! Bees can't see red very well, which is why they love blue, purple, and yellow flowers."}
+  ]
+}
