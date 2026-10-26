@@ -1,5 +1,5 @@
 {
- "default": "bee-senses",
+ "default": "bee-life-cycle",
  "quizzes": [
   {
    "id": "honeybee-basics",
@@ -60,6 +60,12 @@
    "title": "Bee Senses Quiz",
    "date": "2026-10-23",
    "emoji": "👀"
+  },
+  {
+   "id": "bee-life-cycle",
+   "title": "Bee Life Cycle Quiz",
+   "date": "2026-10-26",
+   "emoji": "🥚"
   }
  ]
 }

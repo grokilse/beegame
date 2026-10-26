@@ -1,0 +1,15 @@
+{
+  "id": "bee-life-cycle",
+  "title": "Bee Life Cycle Quiz",
+  "youtube": "https://youtube.com/@steviebee-v2z3o/shorts",
+  "questions": [
+    {"q": "What hatches out of a honeybee egg?", "choices": ["A tiny flying bee", "A larva", "A pupa"], "answer": 1,
+     "fact": "A larva! After about 3 days the egg hatches into a little white grub that nurse bees feed many times a day."},
+    {"q": "What do worker bees put over a cell when the larva is ready to change into a pupa?", "choices": ["A wax cap", "A leaf", "A drop of honey"], "answer": 0,
+     "fact": "A wax cap! Sealed inside, the pupa grows legs, wings, and eyes before chewing its way out as a grown-up bee."},
+    {"q": "About how many days does a worker bee take to grow from egg to adult?", "choices": ["7 days", "21 days", "60 days"], "answer": 1,
+     "fact": "About 21 days! That's 3 days as an egg, about 6 as a larva, and about 12 as a pupa."},
+    {"q": "Which honeybee grows from egg to adult the fastest?", "choices": ["The drone", "The worker", "The queen"], "answer": 2,
+     "fact": "The queen! Fed lots of royal jelly, she's ready in about 16 days, while workers take about 21 and drones about 24."}
+  ]
+}
