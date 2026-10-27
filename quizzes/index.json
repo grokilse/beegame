@@ -1,5 +1,5 @@
 {
- "default": "bee-life-cycle",
+ "default": "drone-bee",
  "quizzes": [
   {
    "id": "honeybee-basics",
@@ -66,6 +66,12 @@
    "title": "Bee Life Cycle Quiz",
    "date": "2026-10-26",
    "emoji": "🥚"
+  },
+  {
+   "id": "drone-bee",
+   "title": "Drone Bee Quiz",
+   "date": "2026-10-27",
+   "emoji": "😎"
   }
  ]
 }

@@ -1,0 +1,15 @@
+{
+  "id": "drone-bee",
+  "title": "Drone Bee Quiz",
+  "youtube": "https://youtube.com/@steviebee-v2z3o/shorts",
+  "questions": [
+    {"q": "What is one thing a drone bee can NOT do?", "choices": ["Fly", "Sting", "Eat honey"], "answer": 1,
+     "fact": "Drones can't sting! Only female bees, the workers and the queen, have a stinger."},
+    {"q": "Why do drone bees have such huge eyes?", "choices": ["To spot a queen flying high in the sky", "To see in the dark hive", "To read the bee dance"], "answer": 0,
+     "fact": "To spot a queen! Their giant eyes help them find a young queen on her mating flight."},
+    {"q": "Do drone bees collect nectar and pollen for the hive?", "choices": ["Yes, every day", "No, the workers do that", "Only on rainy days"], "answer": 1,
+     "fact": "No! Drones don't have pollen baskets, so the busy worker bees do all the foraging."},
+    {"q": "What usually happens to drones when fall comes?", "choices": ["They turn into queens", "They build new honeycomb", "Workers push them out of the hive"], "answer": 2,
+     "fact": "Workers push them out! That saves the honey for winter, and the hive raises new drones in spring."}
+  ]
+}
