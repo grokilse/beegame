@@ -1,5 +1,5 @@
 {
- "default": "drone-bee",
+ "default": "propolis",
  "quizzes": [
   {
    "id": "honeybee-basics",
@@ -72,6 +72,12 @@
    "title": "Drone Bee Quiz",
    "date": "2026-10-27",
    "emoji": "😎"
+  },
+  {
+   "id": "propolis",
+   "title": "Propolis (Bee Glue) Quiz",
+   "date": "2026-10-28",
+   "emoji": "🌳"
   }
  ]
 }

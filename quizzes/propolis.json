@@ -1,0 +1,15 @@
+{
+  "id": "propolis",
+  "title": "Propolis (Bee Glue) Quiz",
+  "youtube": "https://youtube.com/@steviebee-v2z3o/shorts",
+  "questions": [
+    {"q": "What is propolis often called?", "choices": ["Bee glue", "Bee milk", "Bee bread"], "answer": 0,
+     "fact": "Bee glue! Propolis is a sticky, gooey stuff bees use around the hive."},
+    {"q": "Where do bees get the sticky stuff to make propolis?", "choices": ["From ocean water", "From tree buds and bark", "From mud puddles"], "answer": 1,
+     "fact": "From trees! Bees collect sticky resin from tree buds and bark and mix it with beeswax."},
+    {"q": "What do bees use propolis for in the hive?", "choices": ["Feeding baby bees", "Making their stingers", "Sealing tiny cracks and gaps"], "answer": 2,
+     "fact": "Sealing cracks! Bee glue plugs little gaps to keep out drafts, rain, and pests."},
+    {"q": "If a mouse sneaks into the hive and dies, what might the bees do?", "choices": ["Turn it into honey", "Wrap it in propolis", "Use it as a bed"], "answer": 1,
+     "fact": "Wrap it in propolis! It's too big to carry out, so bees seal it up to keep the hive clean and healthy."}
+  ]
+}
