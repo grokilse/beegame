@@ -1,5 +1,5 @@
 {
- "default": "propolis",
+ "default": "bee-stings",
  "quizzes": [
   {
    "id": "honeybee-basics",
@@ -78,6 +78,12 @@
    "title": "Propolis (Bee Glue) Quiz",
    "date": "2026-10-28",
    "emoji": "🌳"
+  },
+  {
+   "id": "bee-stings",
+   "title": "Bee Sting Quiz",
+   "date": "2026-10-29",
+   "emoji": "🐝"
   }
  ]
 }

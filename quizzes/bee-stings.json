@@ -1,0 +1,15 @@
+{
+  "id": "bee-stings",
+  "title": "Bee Sting Quiz",
+  "youtube": "https://youtube.com/@steviebee-v2z3o/shorts",
+  "questions": [
+    {"q": "Which honeybees have a stinger?", "choices": ["Only the boy drone bees", "The girl bees: workers and the queen", "Every single bee"], "answer": 1,
+     "fact": "Only the girls! Worker bees and the queen have stingers, but drone bees can't sting at all."},
+    {"q": "Why does a honeybee sting?", "choices": ["To protect itself and its hive", "Because it is hungry", "To say hello"], "answer": 0,
+     "fact": "To protect! Bees only sting when they feel their hive or themselves are in danger."},
+    {"q": "What is special about a worker honeybee's stinger?", "choices": ["It glows in the dark", "It is made of wax", "It has tiny barbs like hooks"], "answer": 2,
+     "fact": "Tiny barbs! The hooks make it stick in our skin, so a honeybee can usually only sting a person once."},
+    {"q": "If a bee buzzes around you, what is the best thing to do?", "choices": ["Swat it away fast", "Stay calm and slowly walk away", "Yell and wave your arms"], "answer": 1,
+     "fact": "Stay calm! Bees are usually just curious or looking for flowers, and swatting can make them feel threatened."}
+  ]
+}
