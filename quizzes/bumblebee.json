@@ -1,0 +1,15 @@
+{
+  "id": "bumblebee",
+  "title": "Bumblebee Quiz",
+  "youtube": "https://youtube.com/@steviebee-v2z3o/shorts",
+  "questions": [
+    {"q": "How do fuzzy bumblebees warm up on a chilly morning?", "choices": ["They shiver their flight muscles", "They wear tiny sweaters", "They drink hot nectar"], "answer": 0,
+     "fact": "They shiver! Bumblebees buzz their wing muscles without flapping to heat up, so they can fly on cool days."},
+    {"q": "Which bumblebees make it through the winter?", "choices": ["The whole colony", "Only the new queens", "Only the boy drones"], "answer": 1,
+     "fact": "Only the new queens! They sleep underground all winter and start a brand new colony in spring."},
+    {"q": "Which garden food do bumblebees help by buzzing to shake pollen loose?", "choices": ["Corn", "Bananas", "Tomatoes"], "answer": 2,
+     "fact": "Tomatoes! Bumblebees grab the flower and vibrate, called buzz pollination, to shake the pollen out."},
+    {"q": "Where do many bumblebees build their nests?", "choices": ["Underwater in ponds", "In old mouse holes in the ground", "Inside seashells"], "answer": 1,
+     "fact": "Old mouse holes! Many bumblebees nest in the ground, and their nests are much smaller than a honeybee hive."}
+  ]
+}

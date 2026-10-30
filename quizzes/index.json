@@ -1,5 +1,5 @@
 {
- "default": "bee-stings",
+ "default": "bumblebee",
  "quizzes": [
   {
    "id": "honeybee-basics",
@@ -84,6 +84,12 @@
    "title": "Bee Sting Quiz",
    "date": "2026-10-29",
    "emoji": "🐝"
+  },
+  {
+   "id": "bumblebee",
+   "title": "Bumblebee Quiz",
+   "date": "2026-10-30",
+   "emoji": "🌼"
   }
  ]
 }
